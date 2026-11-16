@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#031b35" />
+  <title>05r0sa — Okyanusun Sırrı</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #eafaff;
+      --muted: #a9d5e5;
+      --aqua: #68eff0;
+      --deep: #031326;
+      --panel: rgba(4, 27, 49, .78);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(ellipse at 50% 115%, rgba(0, 178, 190, .35), transparent 45%),
+        radial-gradient(ellipse at 15% 25%, rgba(19, 100, 145, .28), transparent 40%),
+        linear-gradient(180deg, #061b35 0%, #07365a 42%, #021426 100%);
+      overflow-x: hidden;
+    }
+    .ocean-glow {
+      position: fixed; inset: -20% -20% auto; height: 55vh; pointer-events: none;
+      background: linear-gradient(115deg, transparent 30%, rgba(109, 236, 245, .08) 48%, transparent 63%);
+      transform: rotate(-8deg); animation: light 9s ease-in-out infinite alternate;
+    }
+    @keyframes light { from { translate: -5% 0; opacity: .35; } to { translate: 8% 4%; opacity: .8; } }
+    .bubbles { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+    .bubble {
+      position: absolute; bottom: -50px; width: var(--s); height: var(--s); left: var(--x);
+      border: 1px solid rgba(200, 250, 255, .38); border-radius: 50%;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.4), rgba(81,207,235,.04) 60%);
+      animation: rise var(--t) linear infinite; animation-delay: var(--d);
+    }
+    @keyframes rise { to { transform: translateY(-115vh) translateX(35px); opacity: 0; } }
+    header { position: relative; text-align: center; padding: 48px 20px 20px; }
+    .eyebrow { color: var(--aqua); letter-spacing: .35em; font: 700 11px/1.5 Arial, sans-serif; text-transform: uppercase; }
+    h1 { margin: 12px 0 8px; font-size: clamp(38px, 8vw, 76px); font-weight: 500; letter-spacing: .04em; text-shadow: 0 0 28px rgba(91, 237, 245, .35); }
+    .subtitle { margin: 0; color: var(--muted); font: 14px Arial, sans-serif; letter-spacing: .08em; }
+    main { position: relative; width: min(820px, calc(100% - 32px)); margin: 28px auto 70px; }
+    .scene {
+      position: relative; min-height: 340px; padding: clamp(24px, 5vw, 48px);
+      border: 1px solid rgba(133, 232, 245, .25); border-radius: 24px;
+      background: linear-gradient(145deg, rgba(7, 41, 68, .88), var(--panel));
+      box-shadow: 0 22px 80px rgba(0,0,0,.32), inset 0 1px rgba(255,255,255,.06);
+      backdrop-filter: blur(10px); overflow: hidden;
+    }
+    .scene::before { content: ""; position: absolute; width: 260px; height: 260px; right: -100px; top: -120px; border-radius: 50%; background: rgba(64, 214, 226, .09); filter: blur(4px); }
+    .chapter { position: relative; color: var(--aqua); font: 700 11px Arial, sans-serif; letter-spacing: .22em; text-transform: uppercase; }
+    .scene h2 { position: relative; margin: 14px 0 22px; font-size: clamp(26px, 5vw, 38px); font-weight: 500; }
+    .story { position: relative; color: #d8f2f8; font-size: clamp(17px, 2.5vw, 20px); line-height: 1.85; white-space: pre-line; }
+    .choices { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 30px; }
+    button {
+      border: 1px solid rgba(112, 231, 239, .45); border-radius: 14px; padding: 14px 16px;
+      color: var(--ink); background: rgba(17, 94, 123, .35); cursor: pointer;
+      font: 600 14px Arial, sans-serif; transition: .2s ease;
+    }
+    button:hover { transform: translateY(-2px); background: rgba(30, 145, 164, .48); border-color: var(--aqua); box-shadow: 0 8px 24px rgba(0, 205, 220, .12); }
+    button:focus-visible { outline: 3px solid var(--aqua); outline-offset: 3px; }
+    .footer { text-align: center; margin-top: 18px; color: #8bbaca; font: 12px Arial, sans-serif; letter-spacing: .08em; }
+    .sea-floor { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; pointer-events: none; opacity: .45;
+      background: linear-gradient(0deg, rgba(0, 7, 18, .75), transparent),
+      radial-gradient(ellipse at 10% 100%, #08717a 0 3%, transparent 4%),
+      radial-gradient(ellipse at 82% 100%, #075d70 0 4%, transparent 5%); }
+    @media (max-width: 520px) { header { padding-top: 34px; } .scene { min-height: 400px; } }
+  </style>
+</head>
+<body>
+  <div class="ocean-glow"></div>
+  <div class="bubbles" aria-hidden="true">
+    <i class="bubble" style="--s:8px;--x:8%;--t:13s;--d:-4s"></i>
+    <i class="bubble" style="--s:14px;--x:22%;--t:17s;--d:-11s"></i>
+    <i class="bubble" style="--s:6px;--x:39%;--t:12s;--d:-7s"></i>
+    <i class="bubble" style="--s:11px;--x:61%;--t:16s;--d:-2s"></i>
+    <i class="bubble" style="--s:7px;--x:77%;--t:14s;--d:-9s"></i>
+    <i class="bubble" style="--s:16px;--x:92%;--t:19s;--d:-13s"></i>
+  </div>
+  <header>
+    <div class="eyebrow">05r0sa · Derinliklerde Bir Macera</div>
+    <h1>OKYANUSUN SIRRI</h1>
+    <p class="subtitle">Dalgaların altında saklı bir hikâye</p>
+  </header>
+  <main>
+    <section class="scene" aria-live="polite">
+      <div class="chapter" id="chapter">Bölüm 01 · Çağrı</div>
+      <h2 id="title">Mavi ışık</h2>
+      <div class="story" id="story">Deniz kıyısındaki küçük bir kasabada, Deniz adında meraklı bir çocuk yaşardı.
+
+Bir gece, sahilde yürürken suyun altında parlayan mavi bir ışık gördü. Işık üç kez yanıp söndü; sanki ona bir şey anlatmak istiyordu.
+
+Deniz cebindeki minik deniz kabuğunu avucuna aldı. Kabuk da ışığa cevap verir gibi hafifçe parladı. O an, okyanusun kendisine bir sır emanet ettiğini anladı.</div>
+      <div class="choices" id="choices">
+        <button data-next="boat">🌊 Işığa doğru yüz</button>
+        <button data-next="shell">🐚 Deniz kabuğunu incele</button>
+      </div>
+    </section>
+    <div class="footer">Yolculuğun seçimlerinle şekillenecek · 05r0sa.html</div>
+  </main>
+  <div class="sea-floor"></div>
+  <script>
+    const scenes = {
+      start: {
+        chapter: 'Bölüm 01 · Çağrı', title: 'Mavi ışık',
+        story: 'Deniz kıyısındaki küçük bir kasabada, Deniz adında meraklı bir çocuk yaşardı.\n\nBir gece, sahilde yürürken suyun altında parlayan mavi bir ışık gördü. Işık üç kez yanıp söndü; sanki ona bir şey anlatmak istiyordu.\n\nDeniz cebindeki minik deniz kabuğunu avucuna aldı. Kabuk da ışığa cevap verir gibi hafifçe parladı. O an, okyanusun kendisine bir sır emanet ettiğini anladı.',
+        choices: [['🌊 Işığa doğru yüz', 'boat'], ['🐚 Deniz kabuğunu incele', 'shell']]
+      },
+      boat: {
+        chapter: 'Bölüm 02 · Derinlere iniş', title: 'Sessiz su altı',
+        story: 'Deniz, kıyıdaki küçük araştırma denizaltısına bindi. Motor sessizce çalıştı ve denizaltı mavi ışığın peşinden dibe doğru süzüldü.\n\nRenkli balık sürüleri camın önünden yıldızlar gibi geçti. Aşağıda, yosunlarla kaplı eski bir taş kapı belirdi. Kapının ortasında aynı deniz kabuğunun şekli vardı.\n\nKapı açılmak için bir işaret bekliyordu.',
+        choices: [['🐚 Kabuğu kapıya yaklaştır', 'gate'], ['🐠 Önce balıkları takip et', 'fish']]
+      },
+      shell: {
+        chapter: 'Bölüm 02 · Eski mesaj', title: 'Kabuğun fısıltısı',
+        story: 'Deniz kabuğunu kulağına götürdü. İçinden dalga sesi değil, çok uzaklardan gelen yumuşak bir ses duyuldu: “Okyanusun kalbi ışığını kaybediyor. Onu bulabilecek tek kişi sensin.”\n\nKabuğun iç yüzeyinde minicik bir harita belirdi. Harita, denizin ortasındaki gizemli bir girdabı gösteriyordu.\n\nDeniz, araştırma denizaltısına binip yola koyuldu.',
+        choices: [['🧭 Haritayı takip et', 'boat'], ['✨ Kabuğa yeniden bak', 'memory']]
+      },
+      memory: {
+        chapter: 'Bölüm 03 · Hatıra', title: 'Denizin hatırladığı',
+        story: 'Kabuk bu kez Deniz’e annesinin anlattığı eski bir efsaneyi hatırlattı: Okyanusun kalbini koruyan ışık, denizde yaşayan herkesin dostluğundan güç alırdı.\n\nDeniz gülümsedi. Bu yolculukta tek başına olmadığını artık biliyordu.',
+        choices: [['🌊 Yolculuğa devam et', 'boat']]
+      },
+      fish: {
+        chapter: 'Bölüm 03 · Yeni dostlar', title: 'Mercan bekçileri',
+        story: 'Balıklar Deniz’i rengârenk mercan bahçesine götürdü. Orada yaşlı bir deniz kaplumbağası onu bekliyordu.\n\n“Bizi takip ettiğin için teşekkürler,” dedi kaplumbağa. “Taş kapının ardında okyanusun kalbi var. Ama önce onu neden korumamız gerektiğini anlamalısın.”\n\nDeniz, mercanların ve deniz canlılarının evini korumaya söz verdi.',
+        choices: [['🐚 Taş kapıya git', 'gate'], ['🪸 Mercan bahçesini keşfet', 'garden']]
+      },
+      garden: {
+        chapter: 'Bölüm 04 · Mercan bahçesi', title: 'Küçük iyilikler',
+        story: 'Deniz ve yeni dostları mercanların arasını temizledi, deniz canlılarına güvenli geçitler açtı. Her küçük iyilikte kabuk biraz daha parladı.\n\nKaplumbağa başını salladı: “Okyanusu korumak, büyük bir kahramanlık beklemez. Bazen küçük bir iyilik yeter.”',
+        choices: [['💙 Taş kapıya dön', 'gate']]
+      },
+      gate: {
+        chapter: 'Bölüm 05 · Okyanusun kalbi', title: 'Işığın sırrı',
+        story: 'Deniz kabuğunu taş kapının ortasına yerleştirdi. Kapı, binlerce yıldır uyuyan bir yıldız gibi açıldı. İçeride mavi ve turkuaz ışıklarla parlayan kocaman bir inci vardı.\n\nİnci zayıfça titriyordu. Deniz, okyanusun kalbinin ancak denizi korumaya söz verenlerin umuduyla parladığını anladı. Elini incinin üzerine koydu ve sözünü verdi.\n\nBir anda ışık bütün okyanusa yayıldı. Mercanlar canlandı, balıklar dans etti, karanlık köşeler yeniden aydınlandı.',
+        choices: [['🌟 Hikâyenin sonunu gör', 'ending']]
+      },
+      ending: {
+        chapter: 'Son · Mavi söz', title: 'Okyanus artık güvende',
+        story: 'Deniz, kıyıya döndüğünde güneş doğuyordu. Elindeki deniz kabuğu artık parlamıyordu; çünkü görevini tamamlamıştı.\n\nO günden sonra Deniz, kasabasındaki herkese denizi temiz tutmayı ve deniz canlılarını korumayı anlattı. Okyanusun sırrı şuydu: Mavi dünya, onu seven ve koruyan herkesin kalbinde yaşardı.\n\nVe bazen, sakin bir gecede, dalgaların altında minicik bir mavi ışık hâlâ yanıp sönerdi.\n\nSON',
+        choices: [['↻ Hikâyeyi baştan başlat', 'start']]
+      }
+    };
+
+    const chapterEl = document.getElementById('chapter');
+    const titleEl = document.getElementById('title');
+    const storyEl = document.getElementById('story');
+    const choicesEl = document.getElementById('choices');
+
+    function showScene(id) {
+      const scene = scenes[id] || scenes.start;
+      chapterEl.textContent = scene.chapter;
+      titleEl.textContent = scene.title;
+      storyEl.textContent = scene.story;
+      choicesEl.replaceChildren();
+      scene.choices.forEach(([label, next]) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = label;
+        button.addEventListener('click', () => showScene(next));
+        choicesEl.appendChild(button);
+      });
+    }
+    showScene('start');
+  </script>
+</body>
+</html>
